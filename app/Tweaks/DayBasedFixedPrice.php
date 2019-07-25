@@ -17,7 +17,7 @@ class DayBasedFixedPrice implements TweakInterface
 
     public function __construct()
     {
-        $this->today = Carbon::today();
+        $this->today = getToday();
     }
 
     public function tweak($price)

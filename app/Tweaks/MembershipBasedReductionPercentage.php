@@ -18,7 +18,7 @@ class MembershipBasedReductionPercentage implements TweakInterface
 
     public function __construct()
     {
-        $this->userMemebership = getUserMemebership();
+        $this->userMemebership = getCurrentUserMemebership();
     }
 
     public function tweak($price)

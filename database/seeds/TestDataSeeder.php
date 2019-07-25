@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Item;
 use App\PricingOption;
-use App\User;
 
 class TestDataSeeder extends Seeder
 {
