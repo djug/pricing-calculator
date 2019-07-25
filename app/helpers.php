@@ -1,11 +1,33 @@
 <?php
+use Carbon\Carbon;
+
+function setCurrentLocation($city)
+{
+    putenv("CURRENT_CITY=".$city);
+}
 
 function getCurrentLocation()
 {
     return env('CURRENT_CITY', 'London');
 }
 
-function getUserMemebership()
+
+function setCurrentUserMemebership($mebership)
 {
-    return env('MEMBERSHIP', 'standard');
+    putenv("CURRENT_MEMBERSHIP=".$mebership);
+}
+
+function getCurrentUserMemebership()
+{
+    return env('CURRENT_MEMBERSHIP', 'standard');
+}
+
+
+function setToday($date)
+{
+    putenv("TODAY=".$date);
+}
+function getToday()
+{
+    return env('TODAY') ? Carbon::parse(env('TODAY')) : Carbon::today();
 }
