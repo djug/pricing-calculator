@@ -1,24 +1,24 @@
-Pricing Option calculations
----
+#Pricing Option calculations
+
 
 This is a demo of how to implement a flexible Pricing options calculator. 
 
-# How to install
+## How to install
 
-• Install the dependencies: `composer install`
-• Create a new database and create/update your `.env` file accordingly. You can copy the `.env.example` file (`cp .env.example .env`) 
-• run the migrations php artisan migrate and the seeders php artisan `db:seed --class=TestDataSeeder`
-• generate an encryption key `php artisan key:generate` 
-• Lunch the built-in PHP webserver `php artisan serve` 
-• Visit http://127.0.0.1:8000/demo to see the demo homepage 
+- Install the dependencies: `composer install`
+- Create a new database and create/update your `.env` file accordingly. You can copy the `.env.example` file (`cp .env.example .env`) 
+- run the migrations php artisan migrate and the seeders php artisan `db:seed --class=TestDataSeeder`
+- generate an encryption key `php artisan key:generate` 
+- Lunch the built-in PHP webserver `php artisan serve` 
+- Visit http://127.0.0.1:8000/demo to see the demo homepage 
 
-# Directory Permissions
+## Directory Permissions
 Directories within the storage and the `bootstrap/cache` directories should be writable by your web server or the application might not run correctly.
 
-# project structure
+## project structure
 [TODO]
 
-#Presentation
+## Presentation
 
 This is a demo application of How we can build a flexible price calculation engine, that could apply multiple conditional pricing rules (I.e apply 25 percent increase if the item was purchased on a weekend, or apply 50 percent reduction of client with “premium” membership).
 
