@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PricingOption extends Model
 {
-    protected $fillable = ['name', 'tweak_class', 'tweak_parameter'];
+    protected $fillable = ['name', 'tweak_class', 'tweak_condition', 'tweak_parameter'];
 
     public function item()
     {
