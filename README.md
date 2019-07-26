@@ -62,9 +62,9 @@ interface TweakInterface
 * `PricingOption`: the pricing options/tweaks we could apply to the item price. Each pricing option should have at least the following fields:
 
 -`name`: human readable name of the tweak.  Example: `Weekdays Fixed Price (£6)`
-- `tweak_class`: the class that represent the tweak we are going to apply. Example: DayBasedFixedPrice
-- `tweak_condition`: what condition will trigger the tweak. Example: “weekday” (a tweak that will be applied only during weekdays)
-- `tweak_parameter`: the parameter of the tweak
+-`tweak_class`: the class that represent the tweak we are going to apply. Example: DayBasedFixedPrice
+-`tweak_condition`: what condition will trigger the tweak. Example: “weekday” (a tweak that will be applied only during weekdays)
+-`tweak_parameter`: the parameter of the tweak
 
 Each item could have multiple pricing option.
 
