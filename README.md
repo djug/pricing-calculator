@@ -1,5 +1,5 @@
 
-# Pricing Option calculations
+# Pricing Option Calculations
 
 
 This is a demo of how to implement a flexible Pricing options calculator. 
@@ -63,9 +63,9 @@ interface TweakInterface
 -`PricingOption`: the pricing options/tweaks we could apply to the item price. Each pricing option should have at least the following fields:
 
 * `name`: human readable name of the tweak.  Example: `Weekdays Fixed Price (£6)`
-* `tweak_class`: the class that represent the tweak we are going to apply. Example: DayBasedFixedPrice
+* `tweak_class`: the class that represent the tweak we are going to apply. Example: `DayBasedFixedPrice`
 * `tweak_condition`: what condition will trigger the tweak. Example: `weekday` (a tweak that will be applied only during weekdays)
-* `tweak_parameter`: the parameter of the tweak
+* `tweak_parameter`: the parameter of the tweak. Example: `6`.
 
 Each item could have multiple pricing option.
 
@@ -78,7 +78,7 @@ all the tweaks are located in the `/app/tweak` folder.
 
 - `TweakInterface` is the interface all tweaks need to implement. `PriceCalculator` could execute any tweak class as long as it adheres to this contract.
 
-- `DayBasedFixedPrice`: a class that returns a fixed price if a condition on the current day is met.  Example: if the item is purchased on a  Weekday the price will be £6.
+- `DayBasedFixedPrice`: a class that returns a fixed price if a condition on the current day is met.  Example: if the item is purchased on a  weekday the price will be £6.
 
 - `LocationBasedIncreasePercentage`: a class that applies an increase on the base price (a percentage) if a condition on the location where the item is purchased is met.  Example: if the item is purchased in London then apply a 25 percent increase of the base price.
 
@@ -113,6 +113,8 @@ This should never be done in the Price calculation level because doing so  will 
 
 ## Performance
 the engine is quite performance, it doesn't require more than two DB queries in order to execute the tweaks, one to get the `Item` and one to get its related `PricingOption`s.
+
+![Performance](http://youghourta.com/wp-content/uploads/2019/07/Performance.png)
 
 ## Todo
 1.  add a possibility to bundle multiple tweak together. over time, some patterns might emerge (i.e a group of tweaks applied together in many cases). Adding a way to support group tweak might decrease the number of operations needed each time, which might result in a performance improvement.
