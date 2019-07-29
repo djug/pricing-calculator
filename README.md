@@ -1,3 +1,4 @@
+
 # Pricing Option calculations
 
 
@@ -24,9 +25,9 @@ The goal of this application is to demo how such an engine could be built in a w
 
 
 In order to build a flexible engine, we need to take into consideration at least the following SOLID principals:
-- *O*pen/Closed Principle: we need to have an engine that is open to extension (i.e we can add new tweaks easily) but close to modification (we should not change the existing engine code)
-- *S*ingle responsibility principal: we need to relay on tweaks that do one tweak and one tweak only. Same thing of the calculator/engine. 
-- Dependency Inversion Principle: we need to move the control of how the tweak is performed to the tweak class itself (and not the engine running the tweaks).
+- **O**pen/Closed Principle: we need to have an engine that is open to extension (i.e we can add new tweaks easily) but close to modification (we should not change the existing engine code)
+- **S**ingle responsibility principal: we need to relay on tweaks that do one tweak and one tweak only. Same thing of the calculator/engine. 
+- **D**ependency Inversion Principle: we need to move the control of how the tweak is performed to the tweak class itself (and not the engine running the tweaks).
 
 
 
@@ -57,14 +58,14 @@ interface TweakInterface
 
 ## project structure
 ### Models
-* `Item` : the items that we are going to calculate the pricing for. Each item should have at least a name and a `base_price` fields
+-`Item` : the items that we are going to calculate the pricing for. Each item should have at least a name and a `base_price` fields
 
-* `PricingOption`: the pricing options/tweaks we could apply to the item price. Each pricing option should have at least the following fields:
+-`PricingOption`: the pricing options/tweaks we could apply to the item price. Each pricing option should have at least the following fields:
 
--`name`: human readable name of the tweak.  Example: `Weekdays Fixed Price (£6)`
--`tweak_class`: the class that represent the tweak we are going to apply. Example: DayBasedFixedPrice
--`tweak_condition`: what condition will trigger the tweak. Example: “weekday” (a tweak that will be applied only during weekdays)
--`tweak_parameter`: the parameter of the tweak
+* `name`: human readable name of the tweak.  Example: `Weekdays Fixed Price (£6)`
+* `tweak_class`: the class that represent the tweak we are going to apply. Example: DayBasedFixedPrice
+* `tweak_condition`: what condition will trigger the tweak. Example: `weekday` (a tweak that will be applied only during weekdays)
+* `tweak_parameter`: the parameter of the tweak
 
 Each item could have multiple pricing option.
 
@@ -77,17 +78,11 @@ all the tweaks are located in the `/app/tweak` folder.
 
 - `TweakInterface` is the interface all tweaks need to implement. `PriceCalculator` could execute any tweak class as long as it adheres to this contract.
 
-- `DayBasedFixedPrice`: a class that returns a fixed price if a condition on the current day is met. 
+- `DayBasedFixedPrice`: a class that returns a fixed price if a condition on the current day is met.  Example: if the item is purchased on a  Weekday the price will be £6.
 
-*Example*: if the item is purchased on a  Weekday the price will be £6.
+- `LocationBasedIncreasePercentage`: a class that applies an increase on the base price (a percentage) if a condition on the location where the item is purchased is met.  Example: if the item is purchased in London then apply a 25 percent increase of the base price.
 
-- `LocationBasedIncreasePercentage`: a class that applies an increase on the base price (a percentage) if a condition on the location where the item is purchased is met. 
-
-*Example*: if the item is purchased in London then apply a 25 percent increase of the base price.
-
-- `MembershipBasedReductionPercentage`: a class that applies a reduction on the base price (a percentage) if a condition on the membership of the user who purchased it  is met. 
-
-*Example*: if the item is purchased by a user who has a “Standard” membership then apply a 50 percent reduction of the base price.
+- `MembershipBasedReductionPercentage`: a class that applies a reduction on the base price (a percentage) if a condition on the membership of the user who purchased it  is met.  Example: if the item is purchased by a user who has a “Standard” membership then apply a 50 percent reduction of the base price.
 
 Note that these classes use some traits `HasTweakCondition` and `HasTweakParameter` (shared functionality).
 
@@ -115,4 +110,13 @@ Keep in mind that even though these are considered as “unit tests”, they per
 we might want to make the engine take into consideration situations like “If they have basic membership they cannot book at weekends at all” since it looks just like the other tweaks, and you might want to just throw an exception when the condition is met (and catch it elsewhere).
 
 This should never be done in the Price calculation level because doing so  will “break” the “single responsibility principal” (the engine should do just one thing: calculate the price changes) and should be done on the validation layer instead.
+
+## Performance
+the engine is quite performance, it doesn't require more than two DB queries in order to execute the tweaks, one to get the `Item` and one to get its related `PricingOption`s.
+
+## Todo
+1.  add a possibility to bundle multiple tweak together. over time, some patterns might emerge (i.e a group of tweaks applied together in many cases). Adding a way to support group tweak might decrease the number of operations needed each time, which might result in a performance improvement.
+2. consider applying tweaks to the cart and not just the product. for two reasons:
+    * The cart might include useful information that otherwise we'd need to pass “manually” to the tweak calculator.
+    * possibility to apply tweaks based on parameters outside the scope of a single product (like if the user spend a certain amount, apply a particular tweak).
 
