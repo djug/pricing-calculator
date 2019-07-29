@@ -17,5 +17,7 @@ Route::get('/demo', function () {
 
     $steps = $calculator->getDebugStack();
 
-    dd($steps);
+    print "<pre>";
+    print_r($steps);
+    print "</pre>";
 });
